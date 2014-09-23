@@ -17,7 +17,7 @@ else:
 	sys.exit(1)
 
 if args.kw:
-	keyword_prefix = args.kw		
+	keyword_prefix = args.kw
 else:
 	keyword_prefix = "Create"
 
@@ -145,6 +145,14 @@ output.append("Invoke %s" % methodname )
 ma = '   '.join(['${' + a.split()[1].lower() +'}' for a in method_arg])
 output.append( "    [Arguments]   %s" % ma )
 output.append( "    ${result}=    Call Soap Method    %s   %s" % (methodname, ma) )
+output.append( "    [Return]   ${result}" )
+output.append("")
+
+# ... and when expecting fault
+output.append("Invoke %s Expecting Fault" % methodname )
+ma = '   '.join(['${' + a.split()[1].lower() +'}' for a in method_arg])
+output.append( "    [Arguments]   %s" % ma )
+output.append( "    ${result}=    Call Soap Method Expecting Fault   %s   %s" % (methodname, ma) )
 output.append( "    [Return]   ${result}" )
 output.append("")
 
